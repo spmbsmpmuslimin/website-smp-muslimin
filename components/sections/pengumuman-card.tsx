@@ -28,7 +28,7 @@ export default async function PengumumanCard() {
               className="p-4 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800"
             >
               <span className="inline-block text-xs font-medium text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/40 px-2 py-1 rounded mb-2">
-                Penting
+                Penting Sekali
               </span>
               <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-2">
                 {item.title}
