@@ -24,7 +24,7 @@ export default async function ArtikelDetailPage({ params }: PageProps) {
     <main className="max-w-2xl mx-auto px-4 py-10">
       {artikel.is_penting && (
         <span className="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded">
-          Penting
+          Penting Sekali
         </span>
       )}
       <h1 className="text-2xl font-bold mt-2 mb-2">{artikel.title}</h1>
