@@ -19,6 +19,7 @@ export const stats = [
   { number: "324", label: "Siswa Aktif" },
   { number: "28", label: "Guru & Staff" },
   { number: "9", label: "Kelas" },
+  { number: "A", label: "Akreditasi" },
 ];
 
 // Kegiatan ibadah rutin mingguan — jadwalnya tetap, aman hardcoded.

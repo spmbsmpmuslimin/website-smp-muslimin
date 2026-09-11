@@ -1,11 +1,15 @@
 // Path: components/sections/hero-section.tsx
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MoonStar } from "lucide-react";
 
 export default function HeroSection() {
   return (
     <section className="pt-28 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto text-center">
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-emerald-50 dark:bg-emerald-900/30 mb-5">
+          <MoonStar className="h-7 w-7 text-emerald-600 dark:text-emerald-400" />
+        </div>
+
         <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium mb-4">
           Sekolah Islam Terpadu
         </p>

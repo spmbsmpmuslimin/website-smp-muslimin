@@ -1,14 +1,15 @@
 @echo off
-title Deploy SMP Muslimin Cililin
+setlocal enabledelayedexpansion
+title Deploy Aplikasi Website SMP Muslimin Cililin
 color 0A
 
 echo.
-echo ========================================
-echo        DEPLOY - SMP MUSLIMIN CILILIN
-echo ========================================
+echo =======================================================
+echo        DEPLOY - Aplikasi Website SMP MUSLIMIN CILILIN
+echo =======================================================
 echo.
 
-cd "D:\Aplikasi Produksi\Web-smpmuslimin"
+cd /d "D:\Aplikasi Produksi\Aplikasi-web-smpmuslimin"
 
 echo [INFO] Current directory: %CD%
 echo.
@@ -21,6 +22,22 @@ if errorlevel 1 (
 
 for /f "delims=" %%b in ('git branch --show-current') do set current_branch=%%b
 echo [INFO] Current branch: %current_branch%
+echo.
+
+echo [INFO] Checking for uncommitted local changes before pull...
+for /f "delims=" %%s in ('git status --short') do set has_local_changes=1
+if defined has_local_changes (
+    echo.
+    echo [WARNING] Ada perubahan lokal yang belum di-commit:
+    git status --short
+    echo.
+    set /p pull_confirm="  Tetap pull sekarang? Bisa memicu merge/konflik (y/n): "
+    if /i not "!pull_confirm!"=="y" (
+        echo.
+        echo Dibatalkan. Commit atau stash perubahan dulu sebelum deploy.
+        goto :end
+    )
+)
 echo.
 
 echo [1/6] Pulling latest changes from remote...
@@ -38,8 +55,11 @@ echo.
 git status --short
 echo.
 
+set commit_msg=
 set /p commit_msg="  Enter commit message (default: update terbaru): "
-if "%commit_msg%"=="" set commit_msg=update terbaru
+if "!commit_msg!"=="" set commit_msg=update terbaru
+REM Escape tanda kutip ganda di commit message biar gak bikin command error
+set commit_msg=!commit_msg:"=""!
 
 echo.
 echo [3/6] Running build check (npm run build)...
@@ -61,15 +81,15 @@ echo.
 echo [4/6] Staging changes...
 git add .
 
-echo [5/6] Committing: %commit_msg%
-git commit -m "%commit_msg%"
+echo [5/6] Committing: !commit_msg!
+git commit -m "!commit_msg!"
 
 if errorlevel 1 (
     echo.
     echo [WARNING] No changes to commit
     echo.
     set /p force_push="  Push anyway? (y/n): "
-    if /i not "%force_push%"=="y" goto :end
+    if /i not "!force_push!"=="y" goto :end
 ) else (
     echo.
     echo [INFO] Files changed in this commit:
